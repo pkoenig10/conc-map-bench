@@ -17,10 +17,9 @@ where
     type Handle = Self;
 
     fn with_capacity(capacity: usize) -> Self {
-        Self(Arc::new(DashMap::with_capacity_and_hasher(
-            capacity,
-            H::default(),
-        )))
+        Self(Arc::new(
+            DashMap::with_capacity_and_hasher_and_shard_amount(capacity, H::default(), 32),
+        ))
     }
 
     fn pin(&self) -> Self::Handle {

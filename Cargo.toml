@@ -25,6 +25,9 @@ csv = "1.2.2"
 serde = { version = "1.0.185", features = ["derive"] }
 plotters = "0.3.5"
 scc = "2.0.3"
+hashbrown = { version = "0.14.5", default-features = false, features = ["raw"] }
+lock_api = "0.4.12"
+parking_lot_core = "0.9.10"
 
 [profile.release]
 codegen-units = 1

@@ -20,17 +20,17 @@ function bench {
 
     skip=$(cat "$file" | cut -d, -f1 | uniq | paste -sd ' ' -)
 
-    if ! "$BIN" bench -w $1 -h $2 $ARGS --skip $skip --csv 2>>"$file"; then
+    if ! "$BIN" bench -w $1 -h $2 $ARGS --csv 2>>"$file"; then
         bench "$1" "$2" "$3"
     fi
 }
 
 bench ReadHeavy std
-bench Exchange std
-bench RapidGrow std
+# bench Exchange std
+# bench RapidGrow std
 
-bench ReadHeavy ahash
-bench Exchange ahash
-bench RapidGrow ahash
+# bench ReadHeavy ahash
+# bench Exchange ahash
+# bench RapidGrow ahash
 
 date

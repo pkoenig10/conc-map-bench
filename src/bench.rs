@@ -101,8 +101,8 @@ where
 fn run(options: &Options, h: &mut Handler) {
     //case::<StdRwLockBTreeMapTable<u64>>("std:sync::RwLock<BTreeMap>", options, h);
     //case::<ParkingLotRwLockBTreeMapTable<u64>>("parking_lot::RwLock<BTreeMap>", options, h);
-    case::<CHashMapTable<u64>>("CHashMap", options, h);
-    case::<CrossbeamSkipMapTable<u64>>("CrossbeamSkipMap", options, h);
+    // case::<CHashMapTable<u64>>("CHashMap", options, h);
+    // case::<CrossbeamSkipMapTable<u64>>("CrossbeamSkipMap", options, h);
 
     match options.hasher {
         HasherKind::Std => run_hasher_variant::<RandomState>(options, h),
@@ -114,13 +114,24 @@ fn run_hasher_variant<H>(options: &Options, h: &mut Handler)
 where
     H: Default + Clone + Send + Sync + BuildHasher + 'static,
 {
-    //case::<StdRwLockStdHashMapTable<u64, H>>("std::sync::RwLock<StdHashMap>", options, h);
+    // case::<StdRwLockStdHashMapTable<u64, H>>("std::sync::RwLock<StdHashMap>", options, h);
     //case::<ParkingLotRwLockStdHashMapTable<u64, H>>("parking_lot::RwLock<StdHashMap>", options, h);
     case::<DashMapTable<u64, H>>("DashMap", options, h);
-    case::<FlurryTable<u64, H>>("Flurry", options, h);
-    case::<EvmapTable<u64, H>>("Evmap", options, h);
-    case::<ContrieTable<u64, H>>("Contrie", options, h);
-    case::<SccMapTable<u64, H>>("SccMap", options, h);
+    // case::<MyMapMutexTable<u64, H, 0>>("MyMapMutex0", options, h);
+    // case::<MyMapMutexTable<u64, H, 7>>("MyMapMutex7", options, h);
+    case::<MyMapRwLockTable<u64, H, 0>>("MyMapRwLock0", options, h);
+    case::<MyMapRwLockTable<u64, H, 7>>("MyMapRwLock7", options, h);
+    // case::<MyMapRwLockTable<u64, H, 14>>("MyMapRwLock14", options, h);
+    case::<MyMapParkingLockTable<u64, H, 0>>("MyMapParkingLock0", options, h);
+    case::<MyMapParkingLockTable<u64, H, 7>>("MyMapParkingLock7", options, h);
+    // case::<MyMapParkingLockTable<u64, H, 14>>("MyMapParkingLock14", options, h);
+    // case::<MyMapDashLockTable<u64, H, 0>>("MyMapDashLock", options, h);
+    // case::<MyMapDashLockTable<u64, H, 7>>("MyMapDashLock7", options, h);
+    // case::<MyMapDashLockTable<u64, H, 14>>("MyMapDashLock14", options, h);
+    // case::<FlurryTable<u64, H>>("Flurry", options, h);
+    // case::<EvmapTable<u64, H>>("Evmap", options, h);
+    // case::<ContrieTable<u64, H>>("Contrie", options, h);
+    // case::<SccMapTable<u64, H>>("SccMap", options, h);
 }
 
 pub fn bench(options: &Options) {
